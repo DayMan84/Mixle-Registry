@@ -1,0 +1,24 @@
+name: Validate Mixle Theme Registry
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate theme pack manifests
+        run: node scripts/validate-packs.mjs
+      - name: Build pack archives
+        run: node scripts/build-packs.mjs
+      - name: Upload pack artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mixle-theme-packs
+          path: dist/*.mixle-pack
+          if-no-files-found: error

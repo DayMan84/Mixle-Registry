@@ -1,0 +1,88 @@
+{
+  "id": "cyberpunk",
+  "version": "1.0.0",
+  "label": "CyberPunk",
+  "description": "Night City terminal inbox with red and cyan accents.",
+  "publisher": "mixle",
+  "minAppVersion": "1.0.0",
+  "capabilities": {
+    "inboxLayout": "cyberpunk",
+    "avatarShape": "rounded",
+    "bubbleStyle": "cyberpunk-outline",
+    "supportsColorMode": false,
+    "supportsAccentPreset": false,
+    "supportsPixelateAvatars": false,
+    "supportsCompactConversationList": false,
+    "supportsConversationBubbleColors": false,
+    "usesPinnedGridLayout": true,
+    "forcesDarkMode": true,
+    "pixelFrameBorders": true
+  },
+  "preview": {
+    "background": "#0A0202",
+    "surface": "#120808",
+    "outgoingBubble": "#00FFFF",
+    "incomingBubble": "#F4D03F",
+    "accent": "#E1061B"
+  },
+  "tokens": {
+    "light": {
+      "background": "#0A0202",
+      "surface": "#120808",
+      "surfaceSecondary": "#160606",
+      "border": "#3A1515",
+      "borderLight": "#2A1010",
+      "textPrimary": "#59D6E3",
+      "textSecondary": "#59D6E3A6",
+      "textTertiary": "#59D6E366",
+      "textAccent": "#59D6E3",
+      "accent": "#E1061B",
+      "error": "#FF453A",
+      "warning": "#F4D03F",
+      "success": "#06D6A0",
+      "overlay": "#CC000000",
+      "bubbles": {
+        "incoming": "#00000000",
+        "outgoing": "#00000000",
+        "incomingText": "#F4D03F",
+        "outgoingText": "#00FFFF",
+        "incomingBorder": "#F4D03F",
+        "outgoingBorder": "#00FFFF"
+      },
+      "inbox": {
+        "background": "#0A0202",
+        "rowBackground": "#120808",
+        "headerBackground": "#0A0202",
+        "titleText": "#E1061B",
+        "primaryText": "#59D6E3",
+        "secondaryText": "#59D6E38C",
+        "timestampText": "#59D6E366",
+        "divider": "#3A1515",
+        "unreadDot": "#F4D03F",
+        "avatarFallbackBackground": "#2A1010",
+        "searchBackground": "#160606",
+        "searchText": "#59D6E3",
+        "searchPlaceholder": "#59D6E373",
+        "composeButtonBackground": "#160606",
+        "composeIcon": "#E1061B",
+        "accent": "#E1061B",
+        "editText": "#59D6E3",
+        "chevron": "#59D6E3",
+        "headerButtonBackground": "#160606"
+      },
+      "radii": { "sm": 2, "md": 2, "lg": 4, "xl": 4, "full": 2, "composer": 4, "bubble": 4 },
+      "purple": {
+        "c50": "#5C0010",
+        "c100": "#7A0015",
+        "c200": "#990019",
+        "c300": "#B5001F",
+        "c400": "#E1061B",
+        "c500": "#FF0020",
+        "c600": "#E1061B",
+        "c700": "#B5000F",
+        "c800": "#7A000A",
+        "c900": "#4A0006"
+      }
+    }
+  }
+}

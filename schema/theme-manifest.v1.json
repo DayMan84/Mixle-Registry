@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mixle.dev/schema/theme-manifest.v1.json",
+  "title": "Mixle Theme Pack Manifest",
+  "type": "object",
+  "required": ["id", "version", "label", "publisher", "capabilities", "preview"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*[a-z0-9]$",
+      "minLength": 2,
+      "maxLength": 64
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.]+)?$"
+    },
+    "label": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": { "type": "string", "maxLength": 500 },
+    "publisher": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "minAppVersion": { "type": "string" },
+    "capabilities": { "$ref": "#/$defs/capabilities" },
+    "preview": { "$ref": "#/$defs/preview" },
+    "tokens": {
+      "type": "object",
+      "required": ["light"],
+      "properties": {
+        "light": { "$ref": "#/$defs/tokenSet" },
+        "dark": { "$ref": "#/$defs/tokenSet" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "hexColor": {
+      "type": "string",
+      "pattern": "^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$"
+    },
+    "capabilities": {
+      "type": "object",
+      "required": [
+        "inboxLayout",
+        "avatarShape",
+        "bubbleStyle",
+        "supportsColorMode",
+        "supportsAccentPreset",
+        "supportsPixelateAvatars",
+        "supportsCompactConversationList",
+        "supportsConversationBubbleColors",
+        "usesPinnedGridLayout",
+        "forcesDarkMode",
+        "pixelFrameBorders"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "inboxLayout": { "enum": ["modern", "apple", "cyberpunk"] },
+        "avatarShape": { "enum": ["rounded", "circle", "pixel"] },
+        "bubbleStyle": { "enum": ["default", "ios-tail", "cyberpunk-outline"] },
+        "supportsColorMode": { "type": "boolean" },
+        "supportsAccentPreset": { "type": "boolean" },
+        "supportsPixelateAvatars": { "type": "boolean" },
+        "supportsCompactConversationList": { "type": "boolean" },
+        "supportsConversationBubbleColors": { "type": "boolean" },
+        "usesPinnedGridLayout": { "type": "boolean" },
+        "forcesDarkMode": { "type": "boolean" },
+        "pixelFrameBorders": { "type": "boolean" }
+      }
+    },
+    "preview": {
+      "type": "object",
+      "required": ["background", "surface", "outgoingBubble", "incomingBubble", "accent"],
+      "additionalProperties": false,
+      "properties": {
+        "background": { "$ref": "#/$defs/hexColor" },
+        "surface": { "$ref": "#/$defs/hexColor" },
+        "outgoingBubble": { "$ref": "#/$defs/hexColor" },
+        "incomingBubble": { "$ref": "#/$defs/hexColor" },
+        "accent": { "$ref": "#/$defs/hexColor" }
+      }
+    },
+    "bubbleTokens": {
+      "type": "object",
+      "required": ["incoming", "outgoing", "incomingText", "outgoingText", "incomingBorder", "outgoingBorder"],
+      "additionalProperties": false,
+      "properties": {
+        "incoming": { "$ref": "#/$defs/hexColor" },
+        "outgoing": { "$ref": "#/$defs/hexColor" },
+        "incomingText": { "$ref": "#/$defs/hexColor" },
+        "outgoingText": { "$ref": "#/$defs/hexColor" },
+        "incomingBorder": { "$ref": "#/$defs/hexColor" },
+        "outgoingBorder": { "$ref": "#/$defs/hexColor" }
+      }
+    },
+    "inboxTokens": {
+      "type": "object",
+      "required": [
+        "background", "rowBackground", "headerBackground", "titleText", "primaryText",
+        "secondaryText", "timestampText", "divider", "unreadDot", "avatarFallbackBackground",
+        "searchBackground", "searchText", "searchPlaceholder", "composeButtonBackground",
+        "composeIcon", "accent", "editText", "chevron", "headerButtonBackground"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "background": { "$ref": "#/$defs/hexColor" },
+        "rowBackground": { "$ref": "#/$defs/hexColor" },
+        "headerBackground": { "$ref": "#/$defs/hexColor" },
+        "titleText": { "$ref": "#/$defs/hexColor" },
+        "primaryText": { "$ref": "#/$defs/hexColor" },
+        "secondaryText": { "$ref": "#/$defs/hexColor" },
+        "timestampText": { "$ref": "#/$defs/hexColor" },
+        "divider": { "$ref": "#/$defs/hexColor" },
+        "unreadDot": { "$ref": "#/$defs/hexColor" },
+        "avatarFallbackBackground": { "$ref": "#/$defs/hexColor" },
+        "searchBackground": { "$ref": "#/$defs/hexColor" },
+        "searchText": { "$ref": "#/$defs/hexColor" },
+        "searchPlaceholder": { "$ref": "#/$defs/hexColor" },
+        "composeButtonBackground": { "$ref": "#/$defs/hexColor" },
+        "composeIcon": { "$ref": "#/$defs/hexColor" },
+        "accent": { "$ref": "#/$defs/hexColor" },
+        "editText": { "$ref": "#/$defs/hexColor" },
+        "chevron": { "$ref": "#/$defs/hexColor" },
+        "headerButtonBackground": { "$ref": "#/$defs/hexColor" }
+      }
+    },
+    "radiiTokens": {
+      "type": "object",
+      "required": ["sm", "md", "lg", "xl", "full", "composer", "bubble"],
+      "additionalProperties": false,
+      "properties": {
+        "sm": { "type": "number", "minimum": 0 },
+        "md": { "type": "number", "minimum": 0 },
+        "lg": { "type": "number", "minimum": 0 },
+        "xl": { "type": "number", "minimum": 0 },
+        "full": { "type": "number", "minimum": 0 },
+        "composer": { "type": "number", "minimum": 0 },
+        "bubble": { "type": "number", "minimum": 0 }
+      }
+    },
+    "tokenSet": {
+      "type": "object",
+      "required": [
+        "background", "surface", "surfaceSecondary", "border", "borderLight",
+        "textPrimary", "textSecondary", "textTertiary", "textAccent", "accent",
+        "error", "warning", "success", "overlay", "bubbles", "radii"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "background": { "$ref": "#/$defs/hexColor" },
+        "surface": { "$ref": "#/$defs/hexColor" },
+        "surfaceSecondary": { "$ref": "#/$defs/hexColor" },
+        "border": { "$ref": "#/$defs/hexColor" },
+        "borderLight": { "$ref": "#/$defs/hexColor" },
+        "textPrimary": { "$ref": "#/$defs/hexColor" },
+        "textSecondary": { "$ref": "#/$defs/hexColor" },
+        "textTertiary": { "$ref": "#/$defs/hexColor" },
+        "textAccent": { "$ref": "#/$defs/hexColor" },
+        "accent": { "$ref": "#/$defs/hexColor" },
+        "error": { "$ref": "#/$defs/hexColor" },
+        "warning": { "$ref": "#/$defs/hexColor" },
+        "success": { "$ref": "#/$defs/hexColor" },
+        "overlay": { "$ref": "#/$defs/hexColor" },
+        "bubbles": { "$ref": "#/$defs/bubbleTokens" },
+        "inbox": { "$ref": "#/$defs/inboxTokens" },
+        "radii": { "$ref": "#/$defs/radiiTokens" },
+        "purple": {
+          "type": "object",
+          "required": ["c50", "c100", "c200", "c300", "c400", "c500", "c600", "c700", "c800", "c900"],
+          "additionalProperties": false,
+          "properties": {
+            "c50": { "$ref": "#/$defs/hexColor" },
+            "c100": { "$ref": "#/$defs/hexColor" },
+            "c200": { "$ref": "#/$defs/hexColor" },
+            "c300": { "$ref": "#/$defs/hexColor" },
+            "c400": { "$ref": "#/$defs/hexColor" },
+            "c500": { "$ref": "#/$defs/hexColor" },
+            "c600": { "$ref": "#/$defs/hexColor" },
+            "c700": { "$ref": "#/$defs/hexColor" },
+            "c800": { "$ref": "#/$defs/hexColor" },
+            "c900": { "$ref": "#/$defs/hexColor" }
+          }
+        }
+      }
+    }
+  }
+}

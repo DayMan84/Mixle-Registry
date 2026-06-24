@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-24T00:00:00Z",
+  "registryUrl": "https://raw.githubusercontent.com/DayMan84/Mixle-Registry/main/catalog.json",
+  "packs": [
+    {
+      "id": "apple-messages",
+      "version": "1.0.0",
+      "label": "Apple Messages",
+      "description": "Bright iOS-style bubbles and neutrals with pinned grid inbox.",
+      "publisher": "mixle",
+      "minAppVersion": "1.0.0",
+      "bundled": true,
+      "capabilities": {
+        "inboxLayout": "apple",
+        "avatarShape": "circle",
+        "bubbleStyle": "ios-tail",
+        "supportsColorMode": true,
+        "supportsAccentPreset": false,
+        "supportsPixelateAvatars": true,
+        "supportsCompactConversationList": true,
+        "supportsConversationBubbleColors": false,
+        "usesPinnedGridLayout": true,
+        "forcesDarkMode": false,
+        "pixelFrameBorders": false
+      },
+      "preview": {
+        "background": "#FFFFFF",
+        "surface": "#FFFFFF",
+        "outgoingBubble": "#007AFF",
+        "incomingBubble": "#E9E9EB",
+        "accent": "#007AFF"
+      },
+      "downloadUrl": "packs/apple-messages/manifest.json",
+      "sha256": null
+    },
+    {
+      "id": "cyberpunk",
+      "version": "1.0.0",
+      "label": "CyberPunk",
+      "description": "Night City terminal inbox with red and cyan accents.",
+      "publisher": "mixle",
+      "minAppVersion": "1.0.0",
+      "bundled": true,
+      "capabilities": {
+        "inboxLayout": "cyberpunk",
+        "avatarShape": "rounded",
+        "bubbleStyle": "cyberpunk-outline",
+        "supportsColorMode": false,
+        "supportsAccentPreset": false,
+        "supportsPixelateAvatars": false,
+        "supportsCompactConversationList": false,
+        "supportsConversationBubbleColors": false,
+        "usesPinnedGridLayout": true,
+        "forcesDarkMode": true,
+        "pixelFrameBorders": true
+      },
+      "preview": {
+        "background": "#0A0202",
+        "surface": "#120808",
+        "outgoingBubble": "#00FFFF",
+        "incomingBubble": "#F4D03F",
+        "accent": "#E1061B"
+      },
+      "downloadUrl": "packs/cyberpunk/manifest.json",
+      "sha256": null
+    }
+  ],
+  "builtins": [
+    {
+      "id": "modern",
+      "label": "Modern",
+      "description": "Clean purple-accent messaging"
+    },
+    {
+      "id": "pixel",
+      "label": "Pixel Art",
+      "description": "Retro pixel-inspired surfaces"
+    }
+  ]
+}
