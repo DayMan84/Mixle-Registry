@@ -19,6 +19,7 @@
     "pixelFrameBorders": false
   },
   "preview": {
+    "imageUrl": "preview.png",
     "background": "#FFFFFF",
     "surface": "#FFFFFF",
     "outgoingBubble": "#007AFF",

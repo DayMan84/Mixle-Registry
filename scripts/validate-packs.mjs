@@ -78,9 +78,12 @@ function validateCapabilities(caps, path) {
   }
 }
 
-function validatePreview(preview, path) {
+function validatePreview(preview, path, requireImage = false) {
   for (const key of ['background', 'surface', 'outgoingBubble', 'incomingBubble', 'accent']) {
     assertHex(preview?.[key], `${path}.${key}`);
+  }
+  if (requireImage && !preview?.imageUrl) {
+    fail(`${path}.imageUrl is required in catalog entries`);
   }
 }
 
@@ -113,6 +116,12 @@ function validateManifest(manifest, filePath) {
   if (!manifest.publisher) fail(`${filePath}: publisher required`);
   validateCapabilities(manifest.capabilities, `${filePath}.capabilities`);
   validatePreview(manifest.preview, `${filePath}.preview`);
+  if (manifest.preview?.imageUrl) {
+    const imagePath = join(PACKS_DIR, manifest.id, manifest.preview.imageUrl);
+    if (!existsSync(imagePath)) {
+      fail(`${filePath}: preview.imageUrl file missing at ${imagePath}`);
+    }
+  }
   if (!manifest.tokens?.light) fail(`${filePath}: tokens.light required`);
   validateTokenSet(manifest.tokens.light, `${filePath}.tokens.light`);
   if (manifest.tokens.dark) {
@@ -156,6 +165,16 @@ for (const entry of catalog.packs ?? []) {
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
   if (entry.version !== manifest.version) {
     fail(`catalog version for ${entry.id} (${entry.version}) != manifest (${manifest.version})`);
+  }
+  validatePreview(entry.preview, `catalog.packs.${entry.id}.preview`, true);
+  if (entry.preview?.imageUrl) {
+    const imagePath = join(PACKS_DIR, entry.id, entry.preview.imageUrl.replace(/^packs\/[^/]+\//, ''));
+    if (!existsSync(imagePath)) {
+      const altPath = join(ROOT, entry.preview.imageUrl);
+      if (!existsSync(altPath)) {
+        fail(`catalog preview image missing for ${entry.id}`);
+      }
+    }
   }
 }
 

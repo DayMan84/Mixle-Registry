@@ -36,9 +36,10 @@ When publishing to the standalone registry repo, push these paths to the **repos
 
 1. Fork [Mixle-Registry](https://github.com/DayMan84/Mixle-Registry) (or add a pack under `packs/your-theme/`).
 2. Add `manifest.json` following `schema/theme-manifest.v1.json`.
-3. Run `node scripts/validate-packs.mjs`.
-4. Add an entry to `catalog.json` with `downloadUrl` pointing to the pack archive or manifest.
-5. Open a PR — GitHub Actions runs validation automatically.
+3. Add a `preview.png` screenshot and set `preview.imageUrl` in the manifest and catalog entry.
+4. Run `node scripts/validate-packs.mjs`.
+5. Add an entry to `catalog.json` with `downloadUrl` pointing to the pack archive or manifest.
+6. Open a PR — GitHub Actions runs validation automatically.
 
 ## Import flow (app)
 

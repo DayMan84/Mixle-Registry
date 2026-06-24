@@ -72,6 +72,7 @@
       "required": ["background", "surface", "outgoingBubble", "incomingBubble", "accent"],
       "additionalProperties": false,
       "properties": {
+        "imageUrl": { "type": "string", "minLength": 1, "maxLength": 500 },
         "background": { "$ref": "#/$defs/hexColor" },
         "surface": { "$ref": "#/$defs/hexColor" },
         "outgoingBubble": { "$ref": "#/$defs/hexColor" },

@@ -25,6 +25,7 @@
         "pixelFrameBorders": false
       },
       "preview": {
+        "imageUrl": "packs/apple-messages/preview.png",
         "background": "#FFFFFF",
         "surface": "#FFFFFF",
         "outgoingBubble": "#007AFF",
@@ -56,6 +57,7 @@
         "pixelFrameBorders": true
       },
       "preview": {
+        "imageUrl": "packs/cyberpunk/preview.png",
         "background": "#0A0202",
         "surface": "#120808",
         "outgoingBubble": "#00FFFF",
