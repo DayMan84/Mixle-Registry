@@ -89,5 +89,5 @@ node scripts/build-packs.mjs
 | `approvalStatus` | Yes | `pending` / `approved` / `rejected` / `official` |
 | `featureModule` | For apple/cyberpunk | Play module name (underscores only) |
 | `layoutEngine` | For apple/cyberpunk | Theme id registered by the module |
-| `bundled` | No | Auto-install manifest when gallery unlocked |
+| `bundled` | No | Reserved — does not auto-install; users install packs explicitly from the gallery |
 | `downloadUrl` | Yes | Path to manifest JSON or `.mixle-pack` |
