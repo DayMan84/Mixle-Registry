@@ -68,6 +68,11 @@
       "additionalProperties": false,
       "properties": {
         "imageUrl": { "type": "string" },
+        "imageUrls": {
+          "type": "array",
+          "maxItems": 4,
+          "items": { "type": "string" }
+        },
         "background": { "type": "string" },
         "surface": { "type": "string" },
         "outgoingBubble": { "type": "string" },

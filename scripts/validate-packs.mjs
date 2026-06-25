@@ -50,6 +50,7 @@ const INBOX_KEYS = [
 ];
 
 const RADII_KEYS = ['sm', 'md', 'lg', 'xl', 'full', 'composer', 'bubble'];
+const MAX_PREVIEW_IMAGES = 4;
 
 let errors = 0;
 
@@ -82,12 +83,43 @@ function validateCapabilities(caps, path) {
   }
 }
 
+function previewGalleryUrls(preview) {
+  if (Array.isArray(preview?.imageUrls) && preview.imageUrls.length > 0) {
+    return preview.imageUrls.slice(0, MAX_PREVIEW_IMAGES);
+  }
+  if (preview?.imageUrl) return [preview.imageUrl];
+  return [];
+}
+
 function validatePreview(preview, path, requireImage = false) {
   for (const key of ['background', 'surface', 'outgoingBubble', 'incomingBubble', 'accent']) {
     assertHex(preview?.[key], `${path}.${key}`);
   }
-  if (requireImage && !preview?.imageUrl) {
-    fail(`${path}.imageUrl is required in catalog entries`);
+  if (preview?.imageUrls != null) {
+    if (!Array.isArray(preview.imageUrls)) {
+      fail(`${path}.imageUrls must be an array`);
+    } else {
+      if (preview.imageUrls.length > MAX_PREVIEW_IMAGES) {
+        fail(`${path}.imageUrls must have at most ${MAX_PREVIEW_IMAGES} items`);
+      }
+      for (const [i, url] of preview.imageUrls.entries()) {
+        if (typeof url !== 'string' || !url.trim()) {
+          fail(`${path}.imageUrls[${i}] must be a non-empty string`);
+        }
+      }
+    }
+  }
+  if (requireImage && previewGalleryUrls(preview).length === 0) {
+    fail(`${path} requires imageUrl or imageUrls for catalog entries`);
+  }
+}
+
+function assertPreviewImageFiles(preview, baseDir, filePath) {
+  for (const rel of previewGalleryUrls(preview)) {
+    const imagePath = join(baseDir, rel);
+    if (!existsSync(imagePath)) {
+      fail(`${filePath}: preview image missing at ${imagePath}`);
+    }
   }
 }
 
@@ -135,12 +167,8 @@ function validateManifest(manifest, filePath, { isTemplate = false } = {}) {
   if (!manifest.publisher) fail(`${filePath}: publisher required`);
   validateCapabilities(manifest.capabilities, `${filePath}.capabilities`);
   validatePreview(manifest.preview, `${filePath}.preview`);
-  if (!isTemplate && manifest.preview?.imageUrl) {
-    const packDir = dirname(filePath);
-    const imagePath = join(packDir, manifest.preview.imageUrl);
-    if (!existsSync(imagePath)) {
-      fail(`${filePath}: preview.imageUrl file missing at ${imagePath}`);
-    }
+  if (!isTemplate && previewGalleryUrls(manifest.preview).length > 0) {
+    assertPreviewImageFiles(manifest.preview, dirname(filePath), filePath);
   }
   if (!manifest.tokens?.light) fail(`${filePath}: tokens.light required`);
   validateTokenSet(manifest.tokens.light, `${filePath}.tokens.light`);
@@ -229,12 +257,12 @@ for (const entry of catalog.packs ?? []) {
     fail(`catalog featureModule for ${entry.id} != manifest`);
   }
   validatePreview(entry.preview, `catalog.packs.${entry.id}.preview`, true);
-  if (entry.preview?.imageUrl) {
-    const imagePath = join(PACKS_DIR, entry.id, entry.preview.imageUrl.replace(/^packs\/[^/]+\//, ''));
+  for (const rel of previewGalleryUrls(entry.preview)) {
+    const imagePath = join(PACKS_DIR, entry.id, rel.replace(/^packs\/[^/]+\//, ''));
     if (!existsSync(imagePath)) {
-      const altPath = join(ROOT, entry.preview.imageUrl);
+      const altPath = join(ROOT, rel);
       if (!existsSync(altPath)) {
-        fail(`catalog preview image missing for ${entry.id}`);
+        fail(`catalog preview image missing for ${entry.id}: ${rel}`);
       }
     }
   }
