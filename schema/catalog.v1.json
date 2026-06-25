@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mixle.dev/schema/catalog.v1.json",
+  "title": "Mixle Theme Registry Catalog",
+  "type": "object",
+  "required": ["version", "packs", "builtins"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "registryUrl": { "type": "string", "format": "uri" },
+    "approvalWorkflow": { "$ref": "#/$defs/approvalWorkflow" },
+    "packs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/catalogPack" }
+    },
+    "builtins": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/builtin" }
+    },
+    "templates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/template" }
+    }
+  },
+  "$defs": {
+    "approvalStatus": {
+      "type": "string",
+      "enum": ["pending", "approved", "rejected", "official"],
+      "description": "Gallery visibility: only approved and official packs are installable from the catalog."
+    },
+    "approvalWorkflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reviewer": { "type": "string" },
+        "submissionInstructions": { "type": "string" },
+        "defaultStatus": { "$ref": "#/$defs/approvalStatus" }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "required": [
+        "inboxLayout", "avatarShape", "bubbleStyle", "supportsColorMode",
+        "supportsAccentPreset", "supportsPixelateAvatars", "supportsCompactConversationList",
+        "supportsConversationBubbleColors", "usesPinnedGridLayout", "forcesDarkMode",
+        "pixelFrameBorders"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "inboxLayout": { "enum": ["modern", "apple", "cyberpunk"] },
+        "avatarShape": { "enum": ["rounded", "circle", "pixel"] },
+        "bubbleStyle": { "enum": ["default", "ios-tail", "cyberpunk-outline"] },
+        "supportsColorMode": { "type": "boolean" },
+        "supportsAccentPreset": { "type": "boolean" },
+        "supportsPixelateAvatars": { "type": "boolean" },
+        "supportsCompactConversationList": { "type": "boolean" },
+        "supportsConversationBubbleColors": { "type": "boolean" },
+        "usesPinnedGridLayout": { "type": "boolean" },
+        "forcesDarkMode": { "type": "boolean" },
+        "pixelFrameBorders": { "type": "boolean" }
+      }
+    },
+    "preview": {
+      "type": "object",
+      "required": ["background", "surface", "outgoingBubble", "incomingBubble", "accent"],
+      "additionalProperties": false,
+      "properties": {
+        "imageUrl": { "type": "string" },
+        "background": { "type": "string" },
+        "surface": { "type": "string" },
+        "outgoingBubble": { "type": "string" },
+        "incomingBubble": { "type": "string" },
+        "accent": { "type": "string" }
+      }
+    },
+    "catalogPack": {
+      "type": "object",
+      "required": [
+        "id", "version", "label", "publisher", "approvalStatus",
+        "capabilities", "preview", "downloadUrl"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*[a-z0-9]$" },
+        "version": { "type": "string" },
+        "label": { "type": "string" },
+        "description": { "type": "string" },
+        "publisher": { "type": "string" },
+        "minAppVersion": { "type": "string" },
+        "bundled": { "type": "boolean" },
+        "approvalStatus": { "$ref": "#/$defs/approvalStatus" },
+        "featureModule": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*[a-z0-9_]$",
+          "description": "Play Feature Delivery module name when the pack ships custom layout UI."
+        },
+        "layoutEngine": {
+          "type": "string",
+          "description": "Registry theme id for the on-demand layout engine (apple-messages, cyberpunk, etc.)."
+        },
+        "capabilities": { "$ref": "#/$defs/capabilities" },
+        "preview": { "$ref": "#/$defs/preview" },
+        "downloadUrl": { "type": "string" },
+        "sha256": { "type": ["string", "null"] }
+      }
+    },
+    "builtin": {
+      "type": "object",
+      "required": ["id", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "template": {
+      "type": "object",
+      "required": ["id", "label", "manifestUrl", "basedOn"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*[a-z0-9]$" },
+        "label": { "type": "string" },
+        "description": { "type": "string" },
+        "manifestUrl": { "type": "string" },
+        "basedOn": {
+          "type": "string",
+          "enum": ["modern", "pixel", "apple-messages", "cyberpunk"],
+          "description": "Built-in or registry layout the template starts from."
+        }
+      }
+    }
+  }
+}
