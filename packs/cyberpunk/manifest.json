@@ -5,6 +5,8 @@
   "description": "Night City terminal inbox with red and cyan accents.",
   "publisher": "mixle",
   "minAppVersion": "1.0.0",
+  "layoutEngine": "cyberpunk",
+  "featureModule": "theme_pack_cyberpunk",
   "capabilities": {
     "inboxLayout": "cyberpunk",
     "avatarShape": "rounded",

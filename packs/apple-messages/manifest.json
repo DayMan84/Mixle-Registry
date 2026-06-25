@@ -5,6 +5,8 @@
   "description": "Bright iOS-style bubbles and neutrals with pinned grid inbox.",
   "publisher": "mixle",
   "minAppVersion": "1.0.0",
+  "layoutEngine": "apple-messages",
+  "featureModule": "theme_pack_apple_messages",
   "capabilities": {
     "inboxLayout": "apple",
     "avatarShape": "circle",

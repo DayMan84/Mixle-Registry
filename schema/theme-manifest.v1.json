@@ -20,6 +20,23 @@
     "description": { "type": "string", "maxLength": 500 },
     "publisher": { "type": "string", "minLength": 1, "maxLength": 80 },
     "minAppVersion": { "type": "string" },
+    "template": {
+      "type": "boolean",
+      "description": "True for starter manifests under templates/ — not published to the gallery directly."
+    },
+    "basedOn": {
+      "type": "string",
+      "enum": ["modern", "pixel", "apple-messages", "cyberpunk"]
+    },
+    "layoutEngine": {
+      "type": "string",
+      "description": "Theme id of the on-demand layout engine when custom inbox UI is required."
+    },
+    "featureModule": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*[a-z0-9_]$",
+      "description": "Play Feature Delivery module that registers ThemePackUi for this pack."
+    },
     "capabilities": { "$ref": "#/$defs/capabilities" },
     "preview": { "$ref": "#/$defs/preview" },
     "tokens": {
